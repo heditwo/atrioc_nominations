@@ -16,7 +16,7 @@ export const SubmitFormComponent = ({
 		<CardComponent
 			title={nomination.title}
 			description={nomination.description}
-			className="border-t-8"
+			className="border-t-[24px]"
 			style={borderColorStyle}
 		>
 			{/* Info Card Content */}

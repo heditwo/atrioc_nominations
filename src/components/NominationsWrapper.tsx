@@ -8,7 +8,7 @@ const NominationsWrapper = () => {
 	const [selectedNomination, setSelectedNomination] = useState({
 		title: "",
 		description: "",
-		backgroundColor: "",
+		backgroundColor: "#0F172A",
 	});
 
 	return (

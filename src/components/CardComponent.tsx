@@ -17,7 +17,7 @@ const CardComponent: React.FC<CardProps> = ({
 }) => {
 	return (
 		<div
-			className={`bg-slate-900 flex flex-col justify-center items-center pt-8 pb-8 px-8 rounded-3xl max-w-sm ${className}`}
+			className={`bg-slate-900 flex flex-col justify-center items-center pt-8 pb-8 px-8 rounded-3xl max-w-md ${className}`}
 			style={style}
 		>
 			{title && (

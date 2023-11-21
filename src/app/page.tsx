@@ -1,8 +1,6 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { NominationsComponent } from "@/components/NominationsComponent";
-import { SubmitFormComponent } from "@/components/SubmitFormComponent";
 import NominationsWrapper from "@/components/NominationsWrapper";
 
 export default async function Home() {
@@ -13,7 +11,7 @@ export default async function Home() {
 	}
 
 	return (
-		<div className="flex bg-thumb bg-purple1 bg-cover bg-top h-screen">
+		<div className="flex h-screen">
 			<NominationsWrapper />
 		</div>
 	);
