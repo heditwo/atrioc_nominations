@@ -12,7 +12,6 @@ export const SubmitFormComponent = ({
 	const borderColorStyle = {
 		borderTopColor: nomination.backgroundColor,
 	};
-	console.log(nomination);
 	return (
 		<CardComponent
 			title={nomination.title}
