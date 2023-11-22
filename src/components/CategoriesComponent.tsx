@@ -1,4 +1,5 @@
 "use client";
+import { SubmittedCategories } from "@/app/page";
 import React, { useEffect, useState } from "react";
 
 type Category = {
@@ -13,7 +14,7 @@ type Category = {
 	};
 };
 
-type CategoryGroup = {
+export type CategoryGroup = {
 	id: number;
 	attributes: {
 		title: string;
@@ -38,27 +39,18 @@ type OnNominationClick = (nomination: Nomination) => void;
 
 type NominationsComponentProps = {
 	onNominationClick: OnNominationClick;
+	categories: CategoryGroup[];
+	submittedCategories: SubmittedCategories;
 };
 
-//TODO: strike out categories already submitted
 const CategoriesComponent: React.FC<NominationsComponentProps> = ({
 	onNominationClick,
+	categories,
+	submittedCategories,
 }) => {
-	const [categories, setCategories] = useState<CategoryGroup[]>([]);
-
-	useEffect(() => {
-		fetch(`${process.env.API_URL}/api/category-groups?populate=*`, {
-			method: "GET",
-			headers: new Headers({
-				Authorization: `Bearer ${process.env.API_TOKEN}`,
-			}),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				setCategories(data.data);
-			})
-			.catch((error) => console.error("Error fetching categories:", error));
-	}, []);
+	if (!Array.isArray(submittedCategories)) {
+		return;
+	}
 
 	return (
 		<div className="flex flex-col w-full gap-y-5 overflow-auto p-2 scrollbar-thin">
@@ -70,7 +62,9 @@ const CategoriesComponent: React.FC<NominationsComponentProps> = ({
 					{categoryGroup.attributes.categories.data.map((category) => (
 						<div
 							key={category.id}
-							className="flex space-x-2 items-center mb-2 hover:bg-gray-500 p-1"
+							className={`flex space-x-2 items-center mb-2 hover:bg-gray-500 p-1 ${
+								submittedCategories.includes(category.id) ? "line-through" : ""
+							}`}
 							onClick={() =>
 								onNominationClick({
 									title: category.attributes.title,
@@ -83,7 +77,11 @@ const CategoriesComponent: React.FC<NominationsComponentProps> = ({
 							<div
 								className="w-5 h-5 rounded-full"
 								style={{
-									backgroundColor: `#${categoryGroup.attributes.color}`,
+									backgroundColor: `#${
+										submittedCategories.includes(category.id)
+											? "808080"
+											: categoryGroup.attributes.color
+									}`,
 								}}
 							></div>
 							<h3 className="text-white text-xl font-normal">

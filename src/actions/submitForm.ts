@@ -1,10 +1,10 @@
 "use server";
 import { getServerSession } from "next-auth";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
+import { revalidateTag, revalidatePath } from "next/cache";
 
 export const submitForm = async (formData: FormData) => {
 	const session = await getServerSession();
-	const prisma = new PrismaClient();
 
 	if (!session || !session.user || !session.user.name) {
 		return { error: "Something incredibly wrong has happened." };
@@ -64,4 +64,5 @@ export const submitForm = async (formData: FormData) => {
 			}),
 		});
 	}
+	revalidatePath("/");
 };
