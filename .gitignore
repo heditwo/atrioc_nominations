@@ -35,5 +35,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#.vscode
+# .vscode
 .vscode/
+
+# prisma
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal

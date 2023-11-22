@@ -31,6 +31,7 @@ export type Nomination = {
 	title: string;
 	description: string;
 	backgroundColor: string;
+	id: number;
 };
 
 type OnNominationClick = (nomination: Nomination) => void;
@@ -39,6 +40,7 @@ type NominationsComponentProps = {
 	onNominationClick: OnNominationClick;
 };
 
+//TODO: strike out categories already submitted
 const CategoriesComponent: React.FC<NominationsComponentProps> = ({
 	onNominationClick,
 }) => {
@@ -74,6 +76,7 @@ const CategoriesComponent: React.FC<NominationsComponentProps> = ({
 									title: category.attributes.title,
 									description: category.attributes.description!,
 									backgroundColor: `#${categoryGroup.attributes.color}`,
+									id: category.id,
 								})
 							}
 						>

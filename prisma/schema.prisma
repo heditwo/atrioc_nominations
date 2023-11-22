@@ -1,0 +1,19 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Submission {
+  id         Int    @id @default(autoincrement())
+  name       String
+  nominee    String
+  reason     String
+  categoryId Int
+}
+
+generator client {
+  provider = "prisma-client-js"
+}

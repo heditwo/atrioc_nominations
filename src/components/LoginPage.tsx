@@ -46,12 +46,6 @@ export default function LoginPage() {
 								>
 									SIGN IN
 								</button>
-								<Link
-									className="block mt-4 w-full py-3 bg-white text-center text-slate-900 rounded-md text-lg transition duration-300 ease-in-out hover:bg-slate-300"
-									href="/"
-								>
-									HOME
-								</Link>
 							</>
 						)}
 					</div>

@@ -9,6 +9,7 @@ const NominationsWrapper = () => {
 		title: "",
 		description: "",
 		backgroundColor: "#0F172A",
+		id: -1,
 	});
 
 	return (
