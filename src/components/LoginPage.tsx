@@ -9,7 +9,7 @@ export default function LoginPage() {
 
 	return (
 		<div className="flex justify-center items-center h-screen">
-			<div className="bg-slate-900 rounded-xl shadow-lg flex flex-col items-center py-12 px-6 w-full max-w-md">
+			<div className="bg-slate-900 rounded-xl shadow-lg flex flex-col items-center py-12 px-6 w-full max-w-md m-4">
 				{/* User Avatar and Name */}
 				<div className="relative w-full flex flex-col items-center">
 					<Image

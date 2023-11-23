@@ -1,6 +1,6 @@
 "use client";
 import { SubmittedCategories } from "@/app/page";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type Category = {
 	id: number;
@@ -62,9 +62,7 @@ const CategoriesComponent: React.FC<NominationsComponentProps> = ({
 					{categoryGroup.attributes.categories.data.map((category) => (
 						<div
 							key={category.id}
-							className={`flex space-x-2 items-center mb-2 hover:bg-gray-500 p-1 ${
-								submittedCategories.includes(category.id) ? "line-through" : ""
-							}`}
+							className={`flex space-x-2 items-center mb-2 hover:bg-gray-500 p-1 `}
 							onClick={() =>
 								onNominationClick({
 									title: category.attributes.title,
@@ -84,7 +82,13 @@ const CategoriesComponent: React.FC<NominationsComponentProps> = ({
 									}`,
 								}}
 							></div>
-							<h3 className="text-white text-xl font-normal">
+							<h3
+								className={`text-white text-xl font-normal ${
+									submittedCategories.includes(category.id)
+										? "line-through"
+										: ""
+								}`}
+							>
 								{category.attributes.title}
 							</h3>
 						</div>

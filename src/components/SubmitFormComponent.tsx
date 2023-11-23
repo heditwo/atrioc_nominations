@@ -9,11 +9,15 @@ import Button from "./Button";
 type SubmitFormComponentProps = {
 	nomination: Nomination;
 	submittedCategories: SubmittedCategories;
+	className: string;
+	setSelectedNomination: (nomination: Nomination) => void;
 };
 
 export const SubmitFormComponent = ({
 	nomination,
 	submittedCategories,
+	className,
+	setSelectedNomination,
 }: SubmitFormComponentProps) => {
 	const borderColorStyle = {
 		borderTopColor: nomination.backgroundColor,
@@ -28,7 +32,7 @@ export const SubmitFormComponent = ({
 		<CardComponent
 			title={nomination.title}
 			description={nomination.description}
-			className="border-t-[24px]"
+			className={`border-t-[24px] ${className}`}
 			style={borderColorStyle}
 		>
 			<form
@@ -36,6 +40,12 @@ export const SubmitFormComponent = ({
 				action={async (formData) => {
 					ref.current?.reset();
 					await submitForm(formData);
+					setSelectedNomination({
+						title: "",
+						description: "",
+						backgroundColor: "#0F172A",
+						id: -1,
+					});
 				}}
 				ref={ref}
 			>
