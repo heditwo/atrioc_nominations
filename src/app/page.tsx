@@ -4,9 +4,10 @@ import { Session, getServerSession } from "next-auth";
 import NominationsWrapper from "@/components/NominationsWrapper";
 import prisma from "@/lib/prisma";
 
-export type SubmittedCategories = number[] | { error: string };
+export type SubmittedCategories = number[];
 
 const getCategories = async () => {
+	// access key expired so no longer working
 	const categories = await fetch(
 		`${process.env.API_URL}/api/category-groups?populate=*`,
 		{
@@ -22,9 +23,10 @@ const getCategories = async () => {
 const getSubmittedCategories = async (
 	session: Session
 ): Promise<SubmittedCategories> => {
-	if (!session || !session.user || !session.user.name) {
-		return { error: "Something has gone very wrong." };
+	if (!session?.user?.name) {
+		throw new Error("Something has gone very wrong.");
 	}
+
 	try {
 		const submissions = await prisma.submission.findMany({
 			where: { name: session.user.name },
@@ -37,7 +39,7 @@ const getSubmittedCategories = async (
 		return submittedCategoryIds;
 	} catch (error) {
 		console.error("Error fetching submitted categories:", error);
-		return { error: "Error fetching submitted categories" };
+		throw new Error("Error fetching submitted categories");
 	}
 };
 

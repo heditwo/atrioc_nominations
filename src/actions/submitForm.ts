@@ -2,29 +2,34 @@
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prisma";
 import { revalidateTag, revalidatePath } from "next/cache";
+import { z } from "zod";
+
+const formDataSchema = z.object({
+	nominee: z.string(),
+	reason: z.string(),
+	id: z.string().regex(/^\d+$/), // regex check to make sure it's only numbers being submitted
+	title: z.string().optional(),
+});
 
 export const submitForm = async (formData: FormData) => {
 	const session = await getServerSession();
 
-	if (!session || !session.user || !session.user.name) {
+	if (!session || !session.user?.name) {
 		return { error: "Something incredibly wrong has happened." };
 	}
 
-	const nominee = formData.get("nominee");
-	const reason = formData.get("reason");
-	const id = formData.get("id");
-	const title = formData.get("title");
+	const validationResult = formDataSchema.safeParse({
+		nominee: formData.get("nominee"),
+		reason: formData.get("reason"),
+		id: formData.get("id"),
+		title: formData.get("title"),
+	});
 
-	if (
-		!nominee ||
-		typeof nominee !== "string" ||
-		!reason ||
-		typeof reason !== "string" ||
-		!id ||
-		typeof id !== "string"
-	) {
+	if (!validationResult.success) {
 		return { error: "Invalid form data." };
 	}
+
+	const { nominee, reason, id, title } = validationResult.data;
 
 	const existingSubmission = await prisma.submission.findFirst({
 		where: {

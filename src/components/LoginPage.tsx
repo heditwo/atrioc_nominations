@@ -1,11 +1,13 @@
-"use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import Link from "next/link";
 import big_a from "../../public/big_a.png";
+import { SignInButton } from "./buttons/SignInButton";
+import { SignOutButton } from "./buttons/SignOutButton";
 
-export default function LoginPage() {
-	const { data: session } = useSession();
+export default async function LoginPage() {
+	const session = await getServerSession();
 
 	return (
 		<div className="flex justify-center items-center h-screen">
@@ -23,31 +25,7 @@ export default function LoginPage() {
 						{session ? session.user?.name : "chatter"}
 					</div>
 					<div className="mt-8 w-full">
-						{session ? (
-							<>
-								<button
-									onClick={() => signOut()}
-									className="w-full py-3 bg-white text-slate-900 rounded-md text-lg transition duration-300 ease-in-out hover:bg-slate-300"
-								>
-									LOGOUT
-								</button>
-								<Link
-									className="block mt-4 w-full py-3 bg-white text-center text-slate-900 rounded-md text-lg transition duration-300 ease-in-out hover:bg-slate-300"
-									href="/"
-								>
-									HOME
-								</Link>
-							</>
-						) : (
-							<>
-								<button
-									onClick={() => signIn("twitch", { callbackUrl: "/" })}
-									className="w-full py-3 bg-white text-slate-900 rounded-md text-lg transition duration-300 ease-in-out hover:bg-slate-300"
-								>
-									SIGN IN
-								</button>
-							</>
-						)}
+						{session ? <SignOutButton /> : <SignInButton />}
 					</div>
 				</div>
 			</div>

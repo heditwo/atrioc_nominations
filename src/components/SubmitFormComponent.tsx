@@ -4,7 +4,7 @@ import type { Nomination } from "./CategoriesComponent";
 import { submitForm } from "@/actions/submitForm";
 import type { SubmittedCategories } from "@/app/page";
 import { useRef } from "react";
-import Button from "./Button";
+import Button from "./buttons/Button";
 
 type SubmitFormComponentProps = {
 	nomination: Nomination;
